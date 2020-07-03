@@ -3,18 +3,22 @@
     box-shadow: 0 1px 10px rgba(0,0,0,.2), 0 2px 4px 0 rgba(0,0,0,.1);
     color: #8f94ad;
     font-family: raleway,Helvetica Neue,helvetica;
-    height: 56px;
     padding-left: 16px;
-    padding-right: 48px;
     border-radius: 4px;  
     opacity: 1;
-    position: relative;
-    margin-top: 10px;
     width: 60%;
-    left: 35%;
     outline: none;
-    height: 50px;
-    top: 20px;
+    height: 2.5em;
+}
+
+.container-2 {
+  width: 100vw;
+  position: relative;
+
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+
 }
 
 .buttonload {
