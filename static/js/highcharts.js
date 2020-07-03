@@ -20,7 +20,7 @@ function requestData() {
 $(document).ready(function() {
     chart = new Highcharts.Chart({
         chart: {
-            renderTo: 'data-container',
+            renderTo: 'container',
             defaultSeriesType: 'column',
             events: {
                 load: requestData
