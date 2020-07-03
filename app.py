@@ -1,8 +1,9 @@
-from flask import Flask, render_template, jsonify, request, send_file, make_response, Response
+from flask import Flask, render_template, jsonify
+from flask import request, send_file, make_response, Response
 from bs4 import BeautifulSoup
 
+
 import requests
-import bs4
 import urllib.request
 
 import json
@@ -11,6 +12,7 @@ import lxml
 
 
 app = Flask(__name__)
+
 
 # COUNTRY LIST
 country_urls = {
@@ -93,7 +95,7 @@ def index():
       return render_template('index.html')
 
 @app.route("/country-list", methods=['POST'])
-def get_Country_Selection():
+def country_selection():
     # POST request
     if request.method == 'POST':
         print('Incoming...')
@@ -122,7 +124,7 @@ def get_Search_Location():
         print(message)
 
         for key, value in message.items():
-            url_selction +=     str.join('', value)
+            url_selction += str.join('', value)
             url_selction = url_selction.replace(' ', '')
             url_selction += "&radius=25"
             print(url_selction)
@@ -151,7 +153,7 @@ def get_Search_Location():
                 for div in divs:
                     for a in div.find_all('a'):
                         formatted_links.append(a['href'])
-                        print(a['href'])
+                        print("URL: ", a['href'])
 
                 if page_count < 100:
                     url_selction = url_selction[:-2]
@@ -162,7 +164,7 @@ def get_Search_Location():
 
                 url_selction += str(page_count)
                 page_count += 10
-                if page_count == 150:
+                if page_count == 30:
                     get_Job_data(url_selction, formatted_links)
                     break
 
@@ -209,6 +211,8 @@ def get_Job_data(url, link=[]):
                 data += link[link_count]
                 url = data
 
+                print(url)
+
                 divs = soup.find_all("div", {"id": "jobDescriptionText"})
                 for div in divs:
                     for txt in div.find_all('div'):
@@ -239,4 +243,4 @@ def live_chart():
     return response
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000)
+    app.run(host='127.0.0.1', port=5000, debug=True, threaded=True)
